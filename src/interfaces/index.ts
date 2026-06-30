@@ -42,3 +42,13 @@ export interface IDatabaseConnection {
   disconnect(): Promise<void>;
   isConnected(): boolean;
 }
+
+export type { IOrder, IOrderDocument } from './order.interface';
+export type {
+  IOrderStatusHistory,
+  IOrderStatusHistoryDocument,
+} from './orderStatusHistory.interface';
+export type {
+  ISchedulerExecutionLog,
+  ISchedulerExecutionLogDocument,
+} from './schedulerExecutionLog.interface';

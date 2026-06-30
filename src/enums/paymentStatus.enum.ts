@@ -1,0 +1,10 @@
+export const PaymentStatus = {
+  PENDING: 'pending',
+  PAID: 'paid',
+  FAILED: 'failed',
+  REFUNDED: 'refunded',
+} as const;
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus];
+
+export const PAYMENT_STATUS_VALUES = Object.values(PaymentStatus);

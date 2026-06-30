@@ -32,7 +32,8 @@
       "@cron/*": ["cron/*"],
       "@utils/*": ["utils/*"],
       "@constants/*": ["constants/*"],
-      "@types/*": ["types/*"]
+      "@types/*": ["types/*"],
+      "@enums/*": ["enums/*"]
     }
   },
   "include": ["src/**/*"],
