@@ -19,4 +19,12 @@ export interface IOrderRepository {
   create(data: ICreateOrderData): Promise<IOrderDocument>;
   findAll(filter: IOrderFilter): Promise<IOrderDocument[]>;
   existsByOrderId(orderId: string): Promise<boolean>;
+  findByStatusOlderThan(
+    orderStatus: OrderStatus,
+    olderThanMinutes: number,
+  ): Promise<IOrderDocument[]>;
+  updateOrderStatus(
+    orderId: string,
+    orderStatus: OrderStatus,
+  ): Promise<IOrderDocument | null>;
 }

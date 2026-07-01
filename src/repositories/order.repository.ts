@@ -5,6 +5,7 @@ import {
   IOrderRepository,
 } from '../interfaces/orderRepository.interface';
 import { IOrderDocument } from '../interfaces/order.interface';
+import { OrderStatus } from '../enums';
 
 export class OrderRepository implements IOrderRepository {
   public async create(data: ICreateOrderData): Promise<IOrderDocument> {
@@ -23,6 +24,29 @@ export class OrderRepository implements IOrderRepository {
   public async existsByOrderId(orderId: string): Promise<boolean> {
     const order = await OrderModel.exists({ orderId });
     return order !== null;
+  }
+
+  public async findByStatusOlderThan(
+    orderStatus: OrderStatus,
+    olderThanMinutes: number,
+  ): Promise<IOrderDocument[]> {
+    const cutoff = new Date(Date.now() - olderThanMinutes * 60 * 1000);
+
+    return OrderModel.find({
+      orderStatus,
+      updatedAt: { $lte: cutoff },
+    }).exec();
+  }
+
+  public async updateOrderStatus(
+    orderId: string,
+    orderStatus: OrderStatus,
+  ): Promise<IOrderDocument | null> {
+    return OrderModel.findOneAndUpdate(
+      { orderId },
+      { orderStatus },
+      { new: true },
+    ).exec();
   }
 }
 

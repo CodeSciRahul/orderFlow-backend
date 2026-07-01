@@ -56,6 +56,10 @@ export type {
   ISchedulerExecutionLogRepository,
 } from './schedulerExecutionLog.interface';
 export type {
+  SchedulerSummary,
+  SchedulerTransitionResult,
+} from './scheduler.interface';
+export type {
   ICreateOrderData,
   IOrderFilter,
   IOrderRepository,

@@ -7,3 +7,4 @@ export {
   SchedulerExecutionLogService,
   schedulerExecutionLogService,
 } from './schedulerExecutionLog.service';
+export { SchedulerService, schedulerService } from './scheduler.service';
