@@ -7,4 +7,5 @@ export const MESSAGES = {
   VALIDATION_ERROR: 'Validation failed',
   INTERNAL_ERROR: 'Internal server error',
   SERVICE_UNAVAILABLE: 'Service temporarily unavailable',
+  SCHEDULER_EXECUTED: 'Scheduler executed successfully',
 } as const;

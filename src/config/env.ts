@@ -9,6 +9,7 @@ interface EnvConfig {
   mongodbUri: string;
   corsOrigin: string | string[];
   logLevel: string;
+  schedulerApiKey?: string;
   isDevelopment: boolean;
   isProduction: boolean;
   isTest: boolean;
@@ -46,6 +47,7 @@ function loadEnvConfig(): EnvConfig {
     mongodbUri: process.env.MONGODB_URI as string,
     corsOrigin: parseCorsOrigin(process.env.CORS_ORIGIN),
     logLevel: process.env.LOG_LEVEL ?? 'dev',
+    schedulerApiKey: process.env.SCHEDULER_API_KEY,
     isDevelopment: nodeEnv === 'development',
     isProduction: nodeEnv === 'production',
     isTest: nodeEnv === 'test',

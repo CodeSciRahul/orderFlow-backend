@@ -5,3 +5,4 @@ export {
   schedulerExecutionLogController,
   SchedulerExecutionLogController,
 } from './schedulerExecutionLog.controller';
+export { schedulerController, SchedulerController } from './scheduler.controller';
