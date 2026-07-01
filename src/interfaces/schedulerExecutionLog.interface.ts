@@ -16,3 +16,18 @@ export interface ISchedulerExecutionLogDocument
     Document {
   _id: Types.ObjectId;
 }
+
+
+export interface ISchedulerExecutionLogFilter {
+  executionStatus?: ExecutionStatus;
+  fromDate?: Date;
+  toDate?: Date;
+}
+
+export interface ISchedulerExecutionLogRepository {
+  create(data: ISchedulerExecutionLog): Promise<ISchedulerExecutionLogDocument>;
+  findLastExecutionLog(): Promise<ISchedulerExecutionLogDocument | null>;
+  findAll(filter: ISchedulerExecutionLogFilter): Promise<ISchedulerExecutionLogDocument[]>;
+  findById(id: string): Promise<ISchedulerExecutionLogDocument | null>;
+}
+

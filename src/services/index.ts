@@ -3,3 +3,7 @@ export {
   OrderStatusHistoryService,
   orderStatusHistoryService,
 } from './orderStatusHistory.service';
+export {
+  SchedulerExecutionLogService,
+  schedulerExecutionLogService,
+} from './schedulerExecutionLog.service';
