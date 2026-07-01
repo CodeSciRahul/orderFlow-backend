@@ -1,4 +1,5 @@
 export const OrderStatus = {
+  PLACED: 'placed',
   PENDING: 'pending',
   CONFIRMED: 'confirmed',
   PROCESSING: 'processing',

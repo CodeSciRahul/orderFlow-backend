@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { PAYMENT_STATUS_VALUES, ORDER_STATUS_VALUES } from '../enums';
+import { PAYMENT_STATUS_VALUES, ORDER_STATUS_VALUES, OrderStatus, PaymentStatus } from '../enums';
 import { IOrderDocument } from '../interfaces/order.interface';
 
 const PHONE_NUMBER_REGEX = /^\+?[1-9]\d{6,14}$/;
@@ -57,7 +57,7 @@ const orderSchema = new Schema<IOrderDocument>(
         values: PAYMENT_STATUS_VALUES,
         message: 'Payment status must be one of: {VALUE}',
       },
-      default: PAYMENT_STATUS_VALUES[0],
+      default: PaymentStatus.PENDING,
     },
     orderStatus: {
       type: String,
@@ -66,7 +66,7 @@ const orderSchema = new Schema<IOrderDocument>(
         values: ORDER_STATUS_VALUES,
         message: 'Order status must be one of: {VALUE}',
       },
-      default: ORDER_STATUS_VALUES[0],
+      default: OrderStatus.PLACED,
     },
   },
   {
