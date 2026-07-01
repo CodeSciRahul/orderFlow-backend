@@ -33,7 +33,8 @@
       "@utils/*": ["utils/*"],
       "@constants/*": ["constants/*"],
       "@types/*": ["types/*"],
-      "@enums/*": ["enums/*"]
+      "@enums/*": ["enums/*"],
+      "@dto/*": ["dto/*"]
     }
   },
   "include": ["src/**/*"],

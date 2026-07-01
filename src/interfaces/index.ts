@@ -52,3 +52,8 @@ export type {
   ISchedulerExecutionLog,
   ISchedulerExecutionLogDocument,
 } from './schedulerExecutionLog.interface';
+export type {
+  ICreateOrderData,
+  IOrderFilter,
+  IOrderRepository,
+} from './orderRepository.interface';

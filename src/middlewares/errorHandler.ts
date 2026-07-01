@@ -69,6 +69,13 @@ export const errorHandler = (
     return;
   }
 
+  if (err.name === 'MongoServerError' && 'code' in err && err.code === 11000) {
+    res
+      .status(HTTP_STATUS.CONFLICT)
+      .json(ResponseHelper.error('Duplicate entry detected'));
+    return;
+  }
+
   console.error('[Error]', err);
 
   const response = ResponseHelper.error(

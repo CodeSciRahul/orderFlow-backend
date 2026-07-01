@@ -1,2 +1,1 @@
-
-export {};
+export { createOrderValidator, getOrdersValidator } from './order.validator';
