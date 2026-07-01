@@ -13,3 +13,8 @@ export interface IOrderStatusHistoryDocument
     Document {
   _id: Types.ObjectId;
 }
+
+export interface IOrderStatusHistoryRepository {
+  create(data: IOrderStatusHistory): Promise<IOrderStatusHistoryDocument>;
+  findByOrderId(orderId: string): Promise<IOrderStatusHistoryDocument[]>;
+}

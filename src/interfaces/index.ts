@@ -47,6 +47,7 @@ export type { IOrder, IOrderDocument } from './order.interface';
 export type {
   IOrderStatusHistory,
   IOrderStatusHistoryDocument,
+  IOrderStatusHistoryRepository,
 } from './orderStatusHistory.interface';
 export type {
   ISchedulerExecutionLog,
