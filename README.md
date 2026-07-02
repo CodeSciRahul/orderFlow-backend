@@ -30,7 +30,7 @@ These are the env vars used by the backend:
 - **`MONGODB_URI`**: MongoDB connection string (**required**)
 - **`CORS_ORIGIN`**: allowed frontend origin(s)
 - **`LOG_LEVEL`**: morgan log level (e.g. `dev`)
-- **`SCHEDULER_API_KEY`**: API key required for `POST /scheduler/execute` (recommended in production)
+- **`SCHEDULER_API_KEY`**: API key required for `POST /scheduler/execute`
 - **`SCHEDULER_CRON_ENABLED`**: enables internal cron runner (`true|false`)
 
 ---
