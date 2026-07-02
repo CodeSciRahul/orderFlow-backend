@@ -2,7 +2,7 @@
 
 A production-style backend built using **Node.js, Express.js, TypeScript, MongoDB, and Mongoose**. The project follows a layered architecture to keep the code organized and easy to maintain as the application grows.
 
-## Running Locally
+## Setup + run locally
 
 ```bash
 npm install
@@ -19,6 +19,19 @@ Base API URL:
 ```
 http://localhost:5000/api/v1
 ```
+
+## Environment variables
+
+These are the env vars used by the backend:
+
+- **`NODE_ENV`**: `development | production | test`
+- **`PORT`**: HTTP port (default `5000`)
+- **`API_VERSION`**: API version string (default `v1`)
+- **`MONGODB_URI`**: MongoDB connection string (**required**)
+- **`CORS_ORIGIN`**: allowed frontend origin(s)
+- **`LOG_LEVEL`**: morgan log level (e.g. `dev`)
+- **`SCHEDULER_API_KEY`**: API key required for `POST /scheduler/execute` (recommended in production)
+- **`SCHEDULER_CRON_ENABLED`**: enables internal cron runner (`true|false`)
 
 ---
 
@@ -123,7 +136,7 @@ For a larger production system, I would also introduce caching and a distributed
 
 ---
 
-# Scheduler Service
+# Scheduler setup (runs every 5 minutes)
 
 The project currently supports two ways of running the scheduler.
 
@@ -132,6 +145,13 @@ The project currently supports two ways of running the scheduler.
 Uses **node-cron** to execute the scheduler every five minutes.
 
 This works well for local development and small deployments where only one backend instance is running.
+
+To enable/disable it:
+
+```bash
+# .env
+SCHEDULER_CRON_ENABLED=true
+```
 
 ### 2. External Scheduler
 
@@ -148,4 +168,60 @@ This endpoint requires a scheduler API key and can be triggered using services l
 * Render Cron Jobs
 * Railway Cron Jobs
 
+Example:
+
+```bash
+curl -X POST "http://localhost:5000/api/v1/scheduler/execute" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_SCHEDULER_API_KEY" \
+  -d "{}"
+```
+
 For a real production environment, I would personally prefer **AWS EventBridge Scheduler** because it is more reliable than running cron jobs inside the application. It also avoids problems when the backend is scaled to multiple instances.
+
+---
+
+## API documentation (quick)
+
+All responses follow this shape:
+
+```json
+{ "success": true, "message": "Success", "data": {} }
+```
+
+### Health
+- **GET** `/api/v1/health`
+
+### Orders
+- **POST** `/api/v1/orders`
+
+Request body:
+
+```json
+{
+  "customerName": "Jane Doe",
+  "phoneNumber": "+919876543210",
+  "productName": "Smart Watch Series 5",
+  "amount": 15999
+}
+```
+
+- **GET** `/api/v1/orders?status=placed`
+  - `status` is optional and must be one of the allowed order statuses.
+
+### Order status history
+- **GET** `/api/v1/order-status-history/:orderId`
+  - Returns a list of status transitions for an order.
+
+### Scheduler logs
+- **GET** `/api/v1/scheduler-execution-logs`
+  - Optional query params: `executionStatus`, `fromDate`, `toDate`
+- **GET** `/api/v1/scheduler-execution-logs/last`
+- **GET** `/api/v1/scheduler-execution-logs/:id`
+
+---
+
+## Postman collection
+
+A ready-to-import Postman collection is included:
+- `postman/OrderFlow.postman_collection.json`

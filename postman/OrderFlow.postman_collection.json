@@ -1,0 +1,161 @@
+{
+  "info": {
+    "name": "OrderFlow API (v1)",
+    "_postman_id": "d2c92b61-9df1-4b33-97a0-6c3b6e07d1f7",
+    "description": "Basic collection for OrderFlow backend.\n\nSet variables:\n- baseUrl (default: http://localhost:5000)\n- apiKey (optional: SCHEDULER_API_KEY)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "apiKey", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET /api/v1/health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "POST /api/v1/orders",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"Jane Doe\",\n  \"phoneNumber\": \"+919876543210\",\n  \"productName\": \"Smart Watch Series 5\",\n  \"amount\": 15999\n}\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "orders"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "orders"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/orders?status=placed",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/orders?status=placed",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "orders"],
+              "query": [{ "key": "status", "value": "placed" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Order status history",
+      "item": [
+        {
+          "name": "GET /api/v1/order-status-history/:orderId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/order-status-history/{{orderId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "order-status-history", "{{orderId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scheduler",
+      "item": [
+        {
+          "name": "POST /api/v1/scheduler/execute",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "disabled": true
+              }
+            ],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/scheduler/execute",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "scheduler", "execute"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scheduler execution logs",
+      "item": [
+        {
+          "name": "GET /api/v1/scheduler-execution-logs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/scheduler-execution-logs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "scheduler-execution-logs"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/scheduler-execution-logs/last",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/scheduler-execution-logs/last",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "scheduler-execution-logs", "last"]
+            }
+          }
+        },
+        {
+          "name": "GET /api/v1/scheduler-execution-logs/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/scheduler-execution-logs/{{logId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "scheduler-execution-logs", "{{logId}}"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+
