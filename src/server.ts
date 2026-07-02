@@ -1,6 +1,7 @@
 import { Server } from 'http';
 import { createApp } from './app';
 import { database, env } from './config';
+import { startSchedulerCron, stopSchedulerCron } from './cron';
 
 const app = createApp();
 let server: Server;
@@ -8,6 +9,8 @@ let server: Server;
 async function startServer(): Promise<void> {
   try {
     await database.connect();
+
+    startSchedulerCron();
 
     server = app.listen(env.port, () => {
       console.info(
@@ -23,6 +26,8 @@ async function startServer(): Promise<void> {
 
 async function gracefulShutdown(signal: string): Promise<void> {
   console.info(`[Server] ${signal} received. Shutting down gracefully...`);
+
+  stopSchedulerCron();
 
   if (server) {
     server.close(async () => {

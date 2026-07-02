@@ -10,6 +10,7 @@ interface EnvConfig {
   corsOrigin: string | string[];
   logLevel: string;
   schedulerApiKey?: string;
+  schedulerCronEnabled: boolean;
   isDevelopment: boolean;
   isProduction: boolean;
   isTest: boolean;
@@ -35,6 +36,14 @@ function parseCorsOrigin(origin: string | undefined): string | string[] {
   return origin.split(',').map((item) => item.trim());
 }
 
+function parseBoolean(value: string | undefined, defaultValue: boolean): boolean {
+  if (value === undefined) {
+    return defaultValue;
+  }
+
+  return value === 'true' || value === '1';
+}
+
 function loadEnvConfig(): EnvConfig {
   validateEnv();
 
@@ -48,6 +57,10 @@ function loadEnvConfig(): EnvConfig {
     corsOrigin: parseCorsOrigin(process.env.CORS_ORIGIN),
     logLevel: process.env.LOG_LEVEL ?? 'dev',
     schedulerApiKey: process.env.SCHEDULER_API_KEY,
+    schedulerCronEnabled: parseBoolean(
+      process.env.SCHEDULER_CRON_ENABLED,
+      nodeEnv !== 'test',
+    ),
     isDevelopment: nodeEnv === 'development',
     isProduction: nodeEnv === 'production',
     isTest: nodeEnv === 'test',
