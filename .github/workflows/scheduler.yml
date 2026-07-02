@@ -1,0 +1,25 @@
+name: OrderFlow Scheduler
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  trigger-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Scheduler API with Retry
+        run: |
+          curl --request POST \
+            --url "https://orderflow-backend-fech.onrender.com/api/v1/scheduler/excute" \
+            --header "Content-Type: application/json" \
+            --header "x-api-key: ${{ secrets.SCHEDULER_API_KEY }}" \
+            --data '{}' \
+            --fail \
+            --retry 5 \
+            --retry-delay 10 \
+            --retry-all-errors \
+            --connect-timeout 30 \
+            --max-time 60
